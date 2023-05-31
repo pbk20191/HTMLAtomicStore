@@ -1,10 +1,8 @@
 import CoreData
 import Foundation
 
-public class HTMLAtomicStore: NSAtomicStore {
-    
-    public class var storeType: String { NSStringFromClass(self) }
-    
+internal class HTMLAtomicStore: NSAtomicStore {
+        
     private var pDocument = XMLDocument(rootElement: nil)
 
     private var pRefDataToCacheNodeMap = [String:NSAtomicStoreCacheNode]()
