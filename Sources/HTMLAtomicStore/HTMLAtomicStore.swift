@@ -3,16 +3,13 @@ import Foundation
 
 public class HTMLAtomicStore: NSAtomicStore {
     
-    
-    public class var storeType: String { "HTMLStore" }
+    public class var storeType: String { NSStringFromClass(self) }
     
     private var pDocument = XMLDocument(rootElement: nil)
 
     private var pRefDataToCacheNodeMap = [String:NSAtomicStoreCacheNode]()
 
     private let xmlOptions:XMLNode.Options = [.nodePreserveWhitespace, .nodePreserveCharacterReferences]
-
-    public override var type: String { Self.storeType }
 
     public override var metadata: [String : Any]! {
         get {
@@ -27,6 +24,7 @@ public class HTMLAtomicStore: NSAtomicStore {
     
     public override func load() throws {
         guard let fileURL = url else { return }
+        
         if fileURL.isFileURL && !FileManager.default.fileExists(atPath: fileURL.path) {
             // maybe the file just doesn't exist, create it
             pDocument = XMLDocument(kind: .document, options: xmlOptions)
